@@ -3,10 +3,10 @@ import styled from "styled-components";
 
 const Container = styled.div`
   margin: 6px 0;
-  width: 280px;
+  width: 540px;
   padding: 10px;
   border-radius: 6px;
-  display: flex;
+  display: table-column;
   align-items: center;
   border: 1px solid #ffffff26;
 `;
@@ -16,6 +16,10 @@ const UserName = styled.div`
   margin-left: 5px;
 `;
 
+const Password = styled.div`
+    font-weight: lighter;
+    margin-left: auto;
+ `;
 const Name = styled.div`
   font-weight: bold;
   color: #06c4ff;
@@ -38,8 +42,10 @@ const Id = styled.div`
 const Player = ({ user }) => {
   return (
     <Container>
-      <Name>{user.name}</Name> <UserName>{user.username}</UserName>
       <Id>Id: {user.id}</Id>
+      <Name>Full Name: {user.name}</Name>
+      <UserName>User Name: {user.username}</UserName>
+      <Password>Password: {user.password}</Password>
     </Container>
   );
 };

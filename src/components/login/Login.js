@@ -75,8 +75,8 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: null,
-      username: null
+      username: null,
+      password: null
     };
   }
   /**
@@ -91,7 +91,7 @@ class Login extends React.Component {
       },
       body: JSON.stringify({
         username: this.state.username,
-        name: this.state.name
+        password: this.state.password
       })
     })
       .then(response => response.json())
@@ -100,7 +100,7 @@ class Login extends React.Component {
         // store the token into the local storage
         localStorage.setItem("token", user.token);
         // user login successfully worked --> navigate to the route /game in the GameRouter
-        this.props.history.push(`/game`);
+        this.props.history.push(`/menu`);
       })
       .catch(err => {
         if (err.message.match(/Failed to fetch/)) {
@@ -136,6 +136,7 @@ class Login extends React.Component {
       <BaseContainer>
         <FormContainer>
           <Form>
+        {/** adding new password */}
             <Label>Username</Label>
             <InputField
               placeholder="Enter here.."
@@ -143,23 +144,27 @@ class Login extends React.Component {
                 this.handleInputChange("username", e.target.value);
               }}
             />
-            <Label>Name</Label>
-            <InputField
+
+            <Label>Password</Label>
+            <InputField type = {'password'}
               placeholder="Enter here.."
               onChange={e => {
-                this.handleInputChange("name", e.target.value);
+               this.handleInputChange("password", e.target.value);
               }}
             />
+
+
             <ButtonContainer>
               <Button
-                disabled={!this.state.username || !this.state.name}
+                disabled={!this.state.username || !this.state.password}
                 width="50%"
                 onClick={() => {
                   this.login();
                 }}
               >
                 Login
-              </Button>
+                </Button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/register" style={{color: '#FCFFF7'}}>Do not have an account yet?</a>
             </ButtonContainer>
           </Form>
         </FormContainer>
