@@ -83,6 +83,46 @@ class Login extends React.Component {
    * HTTP POST request is sent to the backend.
    * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
    */
+  checkUser(){
+    fetch(`${getDomain()}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
+        token: this.state.token,
+        status: this.state.status
+      })
+    })
+        .then(response => response.json())
+        .then(returnedUser => {
+          if (returnedUser.username === this.state.username && returnedUser.password === this.state.password) {
+            const user = new User(returnedUser);
+            // store the token into the local storage
+            localStorage.setItem("token", user.token);
+            // user login successfully worked --> navigate to the route /menu in the GameRouter
+            this.props.history.push(`/menu`);
+          }
+          else if (returnedUser.username === this.state.username && !returnedUser.password === !this.state.password) {
+              alert("Wrong Password!")
+          }
+          else {
+            alert("Please first register before logging in")
+            this.props.history.push(`/register`);
+          }
+        })
+        .catch(err => {
+          if (err.message.match(/Failed to fetch/)) {
+            alert("The server cannot be reached. Did you start it?");
+          } else {
+            alert(`Something went wrong during the login: ${err.message}`);
+          }
+        });
+  }
+
+  /**
   login() {
     fetch(`${getDomain()}/users`, {
       method: "POST",
@@ -94,12 +134,12 @@ class Login extends React.Component {
         password: this.state.password
       })
     })
-      .then(response => response.json())
-      .then(returnedUser => {
-        const user = new User(returnedUser);
+        .then(response => response.json())
+        .then(returnedUser => {
+          const user = new User(returnedUser);
         // store the token into the local storage
         localStorage.setItem("token", user.token);
-        // user login successfully worked --> navigate to the route /game in the GameRouter
+        // user login successfully worked --> navigate to the route /menu in the GameRouter
         this.props.history.push(`/menu`);
       })
       .catch(err => {
@@ -111,7 +151,7 @@ class Login extends React.Component {
       });
   }
 
-  /**
+
    *  Every time the user enters something in the input field, the state gets updated.
    * @param key (the key of the state for identifying the field that needs to be updated)
    * @param value (the value that gets assigned to the identified state key)
@@ -136,7 +176,7 @@ class Login extends React.Component {
       <BaseContainer>
         <FormContainer>
           <Form>
-        {/** adding new password */}
+
             <Label>Username</Label>
             <InputField
               placeholder="Enter here.."
@@ -159,7 +199,7 @@ class Login extends React.Component {
                 disabled={!this.state.username || !this.state.password}
                 width="50%"
                 onClick={() => {
-                  this.login();
+                  this.checkUser();
                 }}
               >
                 Login

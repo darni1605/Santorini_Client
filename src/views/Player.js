@@ -11,8 +11,8 @@ const Container = styled.div`
   border: 1px solid #ffffff26;
 `;
 
-const UserName = styled.div`
-  font-weight: lighter;
+const Username = styled.div`
+  font-weight: bold;
   margin-left: 5px;
 `;
 
@@ -21,15 +21,22 @@ const Password = styled.div`
     margin-left: auto;
  `;
 const Name = styled.div`
-  font-weight: bold;
+  font-weight: lighter;
   color: #06c4ff;
 `;
 
 const Id = styled.div`
   margin-left: auto;
   margin-right: 10px;
-  font-weight: bold;
+  font-weight: lighter;
 `;
+
+const Date = styled.div`
+  margin-left: auto;
+  margin-right: 10px;
+  font-weight: lighter;
+`;
+
 
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
@@ -42,10 +49,11 @@ const Id = styled.div`
 const Player = ({ user }) => {
   return (
     <Container>
-      <Id>Id: {user.id}</Id>
-      <Name>Full Name: {user.name}</Name>
-      <UserName>User Name: {user.username}</UserName>
-      <Password>Password: {user.password}</Password>
+    <Id>Id: {user.id}</Id>
+    <a href = "/accountoverview" style={{ color: '#FCFFF7'}}>Username: {user.username}</a>
+    <Password>Password: {user.password}</Password>
+    <Date> Date of Creation: {user.date}</Date>
+
     </Container>
   );
 };

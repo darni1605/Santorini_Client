@@ -62,8 +62,7 @@ class Game extends React.Component {
   render() {
     return (
       <Container>
-        <h2>Happy Coding! </h2>
-        <p>Get all users from secure end point:</p>
+        <h2>List of all accounts</h2>
         {!this.state.users ? (
           <Spinner />
         ) : (
@@ -71,7 +70,7 @@ class Game extends React.Component {
             <Users>
               {this.state.users.map(user => {
                 return (
-                  <PlayerContainer key={user.id}>
+                  <PlayerContainer onClick={()=>(this.props.history.push({pathname:`/accountOverview`, state:user.id}))} key={user.id}>
                     <Player user={user} />
                   </PlayerContainer>
                 );

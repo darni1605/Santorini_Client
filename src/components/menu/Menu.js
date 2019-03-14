@@ -83,7 +83,9 @@ const ButtonContainer = styled.div`
 
 class Menu extends React.Component {
 
-
+    settings() {
+            this.props.history.push(`/game`);
+    }
     render() {
         return (
             <BaseContainer>
@@ -92,9 +94,11 @@ class Menu extends React.Component {
 
             <Button>Play</Button>
 
-        {/**  <Button onclick=this.props.history.push(`/account settings`);</Button> */}
-        <Button>Account Settings</Button>
-
+            <Button
+            onClick={() => {
+            this.settings();
+        }}>
+        List of Accounts</Button>
 
 
         </Form>
